@@ -1,0 +1,78 @@
+package com.mycompany.student.calculator.group6;
+
+import java.util.Scanner;
+ public class StudentCalculatorGroup6 {
+  public static void main(String[] args) {
+ try (Scanner scanner = new Scanner(System.in)) {
+ System.out.println("Welcome to the Calculator!");
+ // Outer loop for multiple calculations
+ while (true) {
+ // Ask the user for the number of inputs
+ System.out.print("How many numbers do you want to calculate? ");
+ int size = scanner.nextInt();
+ // Validate input size
+ if (size < 2) {
+ System.out.println("You need at least 2 numbers to perform a calculation.");
+ continue; // Restart the loop
+ }
+ // Initialize an array to store the numbers
+ double[] numbers = new double[size];
+ // Get numbers from the user
+ for (int i = 0; i < size; i++) {
+ System.out.print("Enter number " + (i + 1) + ": ");
+ numbers[i] = scanner.nextDouble();
+ }
+ // Ask for the operator
+ System.out.print("Enter the operator (+, -, *, /): ");
+char operator = scanner.next().charAt(0);
+ // Perform the operation
+ double result = numbers[0]; // Start with the first number
+ boolean validOperation = true;
+ switch (operator) {
+ case '+':
+ for (int i = 1; i < numbers.length; i++) {
+ result += numbers[i];
+ }
+ break;
+ case '-':
+ for (int i = 1; i < numbers.length; i++) {
+ result -= numbers[i];
+ }
+ break;
+ case '*':
+ for (int i = 1; i < numbers.length; i++) {
+ result *= numbers[i];
+ }
+ break;
+ case '/':
+ for (int i = 1; i < numbers.length; i++) {
+ if (numbers[i] != 0) {
+ result /= numbers[i];
+ } else {
+ System.out.println("Error: Division by zero is not allowed.");
+ validOperation = false;
+ break;
+ }
+ }
+break;
+ default:
+ System.out.println("Invalid operator!");
+ validOperation = false;
+ }
+ // Display the result if the operation was valid
+ if (validOperation) {
+ System.out.println("Result: " + result);
+ } else {
+ System.out.println("Calculation could not be completed due to an error.");
+ }
+ // Ask if the user wants to perform another calculation
+ System.out.print("Do you want to perform another calculation? (yes/no): ");
+ String choice = scanner.next().toLowerCase();
+ if (!choice.equals("yes")) {
+ System.out.println("Thank you for using the calculator. Goodbye!");
+ break; // Exit the loop
+ }
+ }
+ }
+ }
+}
